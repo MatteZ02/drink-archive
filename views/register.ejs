@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fi">
+
+<head>
+    <link rel="stylesheet" href="../public/login.css">
+    <title>Rekisteröidy</title>
+</head>
+
+<body>
+    <div class="login-form">
+        <h1>Rekisteröidy käyttäjäksi</h1>
+            <% if (code == "EMAIL_INUSE") { %>
+                <h2>Sähköposti on jo rekisteröidy järjestelmään!</h2>
+            <% } else if (code == "USERNAME_INUSE") { %> 
+                <h2>Käyttäjänimi on varattu!</h2>
+            <%  }else if (code == "PASSWORD_NOT_MATCH") { %> 
+                <h2>Salasanat eivät täsmää!</h2>
+            <% } %>
+        <form action="registered" method="POST">
+            <input type="text" name="email" placeholder="Sähköposti" required>
+            <input type="text" name="username" placeholder="Käyttäjänimi" required>
+            <input type="password" name="password" placeholder="Salasana" required>
+            <input type="password" name="password2" placeholder="Salasana uudelleen" required>
+            <input type="submit">
+        </form>
+        <button><a href="/login">Kirjaudu sisään</a></button>
+    </div>
+</body>
+
+</html>

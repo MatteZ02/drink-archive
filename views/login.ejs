@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fi">
+
+<head>
+    <link rel="stylesheet" href="../public/login.css">
+    <title>Kirjaudu</title>
+</head>
+
+<body>
+    <div class="login-form">
+        <h1>Kirjaudu Sisään</h1>
+        <% if (code == "INCORRECT_LOGIN_DETAILS") { %>
+            <h2>Virheellinen käyttäjätunnus tai salasana!</h2>
+        <% } else if (code == "REGISTERED") { %> 
+            <h3>Käyttäjä rekisteröity!</h3>
+        <% } %> 
+        <form action="auth" method="POST">
+            <input type="text" name="username" placeholder="Käyttäjätunnus" required>
+            <input type="password" name="password" placeholder="Salasana" required>
+            <input type="submit">
+        </form>
+        <button><a href="/register">Rekisteröidy</a></button>
+    </div>
+</body>
+
+</html>

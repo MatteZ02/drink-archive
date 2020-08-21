@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fi">
+
+<head>
+  <script src="../main.js"></script>
+    <link rel="stylesheet" href="../public/main.css">
+  <title>Drinkit</title>
+</head>
+
+<body>
+  <%- include("./modules/nav") %> 
+  <div class="drink-list">
+    <table class="table table-striped" onclick="tableClick()">
+        <tbody>
+            <tr>
+                <th scope="row"><u>Drinkin nimi</u></th>
+                <td><u>Drinkin laji</u></td>
+            </tr>
+            <tr>
+                <th scope="row">Finlandia Coffee</th>
+                <td>jälkiruokadrinkki</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>

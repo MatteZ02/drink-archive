@@ -1,6 +1,9 @@
 {
-    "host": "localhost",
-    "user": "root",
-    "password": "",
-    "database": "autokanta"
+    "database": {
+        "host": "localhost",
+        "user": "root",
+        "password": "",
+        "database": "drink-archive"
+    },
+    "port": 4000
 }
