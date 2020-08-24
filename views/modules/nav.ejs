@@ -1,11 +1,15 @@
 <link rel="stylesheet" href="../public/nav.css">
 <nav>
-    <div class="dropdown">
-      <button class="dropbtn">Menu</button>
-      <div class="dropdown-content">
-        <a href="/">Etusivu</a>
-        <a href="/drinks">Drinkit</a>
-        <a href="/adddrink">Lisää drinkki</a>
-      </div>
+  <div class="user">
+    <a href="/user">Logged in as <%=user.username %></a>
+    <a href="/logout">Kirjaudu ulos</a>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Menu</button>
+    <div class="dropdown-content">
+      <a href="/">Etusivu</a>
+      <a href="/drinks">Drinkit</a>
+      <a href="/add">Lisää drinkki</a>
     </div>
-  </nav>
+  </div>
+</nav>

@@ -2,30 +2,37 @@ const db = require("../db");
 
 module.exports = (app) => {
     const renderTemplate = (req, res, template, code) => {
-        res.render(template, { db, code });
+        res.render(template, { db, code, user: req.session.user });
     };
 
-    function random(length) {
-        let result = '';
-        if (!length) length = 6;
-        for (let i = 0; i < length; i++) {
-            result += Math.floor(Math.random() * 10).toString();
-        }
-        return result;
-    }
-
-    app.get("/", (req, res) => {
+    const isAuthenticated = (req, res, template) => {
         if (req.session.loggedin) {
-            renderTemplate(req, res, "index");
+            renderTemplate(req, res, template);
         } else {
             res.redirect("/login");
         }
-    });
+    }
 
-    app.get("/login", (req, res) => renderTemplate(req, res, "login"));
-    app.get("/register", (req, res) => renderTemplate(req, res, "register"))
-    app.get("/drinks", (req, res) => renderTemplate(req, res, "drinks"));
-    app.get("/adddrink", (req, res) => renderTemplate(req, res, "addDrink"));
+    const isAuthenticatedInv = (req, res, template) => {
+        if (!req.session.loggedin) {
+            renderTemplate(req, res, template);
+        } else {
+            res.redirect("/");
+        }
+    }
+
+    app.get("/", (req, res) => isAuthenticated(req, res, "index"));
+
+    app.get("/login", (req, res) => isAuthenticatedInv(req, res, "login"));
+    app.get("/register", (req, res) => isAuthenticatedInv(req, res, "register"));
+    app.get("/drinks", (req, res) => isAuthenticated(req, res, "drinks"));
+    app.get("/add", (req, res) => isAuthenticated(req, res, "add"));
+    app.get("/user", (req, res) => isAuthenticated(req, res, "user"));
+
+    app.get("/logout", (req, res) => {
+        req.session.loggedin = false;
+        res.redirect("/");
+    });
 
     app.post("/registered", async (req, res) => {
         const email = req.body.email;
@@ -33,24 +40,25 @@ module.exports = (app) => {
         const password = req.body.password;
         const password2 = req.body.password2;
         const results = await db.select({fields: "*", table: "accounts"});
+        let inUse = false;
         results.forEach(item => {
-            if (item.email == email) {
-                renderTemplate(req, res, "register", "EMAIL_INUSE");
-                res.end();
-            }
-            if (item.username == username) {
-                renderTemplate(req, res, "register", "USERNAME_INUSE");
-                res.end();
+            if (item.email.toLowerCase() == email.toLowerCase()) {
+                if (inUse) return;
+                inUse = true;
+                return renderTemplate(req, res, "register", "EMAIL_INUSE");
+            } else if (item.username.toLowerCase() == username.toLowerCase()) {
+                if (inUse) return;
+                inUse = true;
+                return renderTemplate(req, res, "register", "USERNAME_INUSE");
             }
         });
+        if (inUse) return;
         if (password !== password2) {
-            renderTemplate(req, res, "register", "PASSWORD_NOT_MATCH");
-            res.end();
+            return renderTemplate(req, res, "register", "PASSWORD_NOT_MATCH");
         }
         if (username && password && password2 && email) {
-            db.insert({table: "accounts", fields: 'id, username, password, email', values: `"${random(20)}", "${username}", "${password}", "${email}"`});
-            renderTemplate(req, res, "login", "REGISTERED");
-            res.end();
+            db.insert({table: "accounts", fields: 'username, password, email, admin', values: `"${username}", "${password}", "${email}, 0"`});
+            return renderTemplate(req, res, "login", "REGISTERED");
         } else {
             res.send('Please fill the requiered fields!');
             res.end();
@@ -64,7 +72,7 @@ module.exports = (app) => {
            const results = await db.select({fields: "*", table: "accounts", where: "username = ? AND password = ?", username: username, password: password});
                 if (results.length > 0) {
                     req.session.loggedin = true;
-                    req.session.username = username;
+                    req.session.user = results;
                     res.redirect('/');
                 } else {
                     renderTemplate(req, res, "login", "INCORRECT_LOGIN_DETAILS");         

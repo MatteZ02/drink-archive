@@ -13,7 +13,7 @@
                 <h2>Sähköposti on jo rekisteröidy järjestelmään!</h2>
             <% } else if (code == "USERNAME_INUSE") { %> 
                 <h2>Käyttäjänimi on varattu!</h2>
-            <%  }else if (code == "PASSWORD_NOT_MATCH") { %> 
+            <% } else if (code == "PASSWORD_NOT_MATCH") { %> 
                 <h2>Salasanat eivät täsmää!</h2>
             <% } %>
         <form action="registered" method="POST">

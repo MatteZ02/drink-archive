@@ -1,0 +1,21 @@
+<link rel="stylessheet" href="../../public/drink.css">
+<h1>
+    Drinkki
+</h1>
+<div class="drink">
+<h2>
+    <%=drink.name%>
+</h2>
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th scope="row"><u>Ainesosat</u></th>
+                <td><u>Valmistusohje</u></td>
+            </tr>
+            <tr>
+                <th scope="row">ingrediens </th>
+                <td><%= drink.recipe %> </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

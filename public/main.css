@@ -1,4 +1,3 @@
-@import "../nav.css";
 @import "../table.css";
 
 .wrapper {
@@ -39,24 +38,6 @@
 
 .wrapper button a:hover {
     color: rgb(255, 255, 255);
-}
-
-.drink-list {
-    width: 60%;
-    margin-top: 70px;
-    margin-left: 20%;
-    background-color: #066175;
-    cursor: pointer;
-}
-
-.drink-list u {
-    color: white;
-}
-
-.drink {
-    margin-left: 5%;
-    width: 90%;
-    background-color: #066175;
 }
 
 h1 {

@@ -34,7 +34,24 @@ nav {
     color: rgb(255, 255, 255);
     background-color: transparent;
     text-decoration: underline;
-    background-color: rgb(0, 67, 85)
+    background-color: rgb(0, 67, 85);
+  }
+
+  .user {
+    height: auto;
+    float: right;
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 67, 85);
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+ .user a {
+    float: right;
+  }
+
+  .user a:hover {
+    text-decoration: none;
   }
 
   .dropbtn {
