@@ -2,32 +2,53 @@
 <html lang="fi">
 
 <head>
-    <script src="../public/js/main.js"></script>
     <link rel="stylesheet" href="../public/main.css">
     <title>Lisää</title>
 </head>
 
 <body>
-    <%- include("./modules/nav") %> 
-    <h1>
-        Lisää drinkki
-    </h1>
-        <fieldset>
-            <legend>Nimi</legend>
-            <textarea rows="1" cols="77">
-            </textarea>
-            <legend>Laji</legend>
-            <textarea rows="1" cols="77">
-            </textarea>
-            <legend>Ainesosat</legend>
-            <textarea rows="3" cols="77">
-            </textarea>
-            <legend>Valmistusohje</legend>
-            <textarea rows="5" cols="77">
-            </textarea>
-        </fieldset>
-    <div class="wrapper">
-        <button><a href="./drinkki.html">Lisää</a></button>
+    <%- include("./modules/nav") %>
+    <div class="add-form">
+        <h1>
+            Lisää drinkki
+        </h1>
+        <form action="add" method="POST">
+            <input type="text" name="name" placeholder="nimi" required>
+            <input type="text" name="genre" placeholder="laji" required>
+            <input type="text" name="recipe" placeholder="valmistusohje" required>
+            <select id="ingredients" name="ingredients">
+                <% params.ingredients.forEach(item => { %>
+                    <%- include("./modules/ingredient", { item }) %>
+                <% }); %> 
+            </select>
+            <input type="text" name="amount" placeholder="määrä" required>
+            <select id="ingredients" name="ingredients">
+                <% params.ingredients.forEach(item => { %>
+                    <%- include("./modules/ingredient", { item }) %>
+                <% }); %> 
+            </select>
+            <input type="text" name="amount" placeholder="määrä">
+            <select id="ingredients" name="ingredients">
+                <% params.ingredients.forEach(item => { %>
+                    <%- include("./modules/ingredient", { item }) %>
+                <% }); %> 
+            </select>
+            <input type="text" name="amount" placeholder="määrä">
+            <select id="ingredients" name="ingredients">
+                <% params.ingredients.forEach(item => { %>
+                    <%- include("./modules/ingredient", { item }) %>
+                <% }); %> 
+            </select>
+            <input type="text" name="amount" placeholder="määrä">
+            <input type="submit">
+        </form>
+        <% if (user.admin) { %> 
+            <h2>Lisää ainesosa</h2>
+            <form action="addingredient" method="POST">
+                <input type="text" name="name" placeholder="nimi" required>
+                <input type="submit">
+            </form>
+        <% } %>
     </div>
 </body>
 

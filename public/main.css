@@ -48,7 +48,64 @@ h2 {
     text-align: center;
 }
 
-fieldset {
+.add-form {
+    margin-left: 25%;
+    width: 50%;
+}
+
+form input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #dddddd;
+    margin-bottom: 15px;
+    box-sizing:border-box;
+}
+
+form input[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    background-color: #535b63;
+    border: 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+form select {
+    width: 49%;
+    padding: 15px;
+    background-color: #535b63;
+    border: 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+form input[name="amount"] {
+    margin-left: 1.55%;
+    width: 49%;
+    padding: 15px;
+    border: 1px solid #dddddd;
+    margin-bottom: 15px;
+    box-sizing:border-box;
+}
+
+.drink-list {
     width: 60%;
+    margin-top: 70px;
     margin-left: 20%;
+    background-color: #066175;
+    cursor: pointer;
+}
+
+.drink-list u {
+    color: white;
+}
+
+.drink {
+    margin-left: 5%;
+    width: 90%;
+    background-color: #066175;
 }

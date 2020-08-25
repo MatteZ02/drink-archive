@@ -9,8 +9,14 @@
 <body>
   <%- include("./modules/nav", { user }) %> 
   <div class="drink-list">
-      <% const drinks = await db.select({fields: "*", table: "drinks"}) %>
-      <% drinks.forEach(drink => include("./modules/drink", { drink })); %>
+    <table class="table table-striped">
+      <tbody>
+      <% if (!user.admin) params.drinks = params.drinks.filter(drink => drink.approved == 1); %> 
+      <% params.drinks.forEach(drink => { %>
+        <%- include("./modules/drink", { drink }); %>
+      <% }); %>
+    </tbody>
+  </table>
   </div>
 </body>
 
