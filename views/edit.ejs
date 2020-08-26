@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fi">
+
+<head>
+    <link rel="stylesheet" href="../public/main.css">
+    <title>Muokkaa</title>
+</head>
+
+<body>
+    <%- include("./modules/nav") %>
+    <div class="add-form">
+        <h1>
+            Muokkaa drinkin tietoja
+        </h1>
+        <form action="update" method="POST">
+            Nimi
+            <input type="text" name="name" value="<%= params.drink.name %>" required>
+            Laji
+            <input type="text" name="genre" value="<%= params.drink.genre %>" required>
+            Valmistusohje
+            <input type="text" name="recipe" value="<%= params.drink.recipe %>" required>
+            <input type="submit">
+        </form>
+    </div>
+</body>
+
+</html>

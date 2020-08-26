@@ -54,6 +54,31 @@ module.exports = class database {
           });
         });
     }
+
+    update (options) {
+      if (typeof options !== "object") throw new Error(`The options must be of type "object" type received was ${typeof options}`);
+      if (typeof options.set !== "string") throw new Error(`set must be of type "string" type received was ${typeof options.fields}.`);
+      if (typeof options.table !== "string") throw new Error(`table must be of type "string" type received was ${typeof options.table}.`);
+      if (typeof options.where !== "string") throw new Error(`where must be of type "string" type received was ${typeof options.table}.`);
+      return new Promise(resolve => {
+        this.connection.query(`update ${options.table} set ${options.set} where ${options.where}`, (error, results) => {
+          if (error) throw new Error(error);
+          resolve(results);
+        });
+      });
+    }
+
+    delete (options) {
+      if (typeof options !== "object") throw new Error(`The options must be of type "object" type received was ${typeof options}`);
+      if (typeof options.table !== "string") throw new Error(`table must be of type "string" type received was ${typeof options.table}.`);
+      if (typeof options.where !== "string") throw new Error(`where must be of type "string" type received was ${typeof options.table}.`);
+      return new Promise(resolve => {
+        this.connection.query(`delete from ${options.table} where ${options.where}`, (error, results) => {
+          if (error) throw new Error(error);
+          resolve(results);
+        });
+      });
+    }
 }
 
 

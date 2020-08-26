@@ -9,14 +9,10 @@
 <body>
   <%- include("./modules/nav", { user }) %> 
   <div class="drink-list">
-    <table class="table table-striped">
-      <tbody>
       <% if (!user.admin) params.drinks = params.drinks.filter(drink => drink.approved == 1); %> 
       <% params.drinks.forEach(drink => { %>
-        <%- include("./modules/drink", { drink }); %>
+        <%- include("./modules/drink", { drink, user }); %>
       <% }); %>
-    </tbody>
-  </table>
   </div>
 </body>
 

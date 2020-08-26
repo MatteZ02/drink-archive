@@ -1,5 +1,34 @@
 @import "../table.css";
 
+a {
+    transition: 0.4s;
+    float: left;
+}
+
+a:visited {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    background-color: transparent;
+}
+
+a:link {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    background-color: transparent;
+}
+
+a:active {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    background-color: transparent;
+}
+
+a:hover {
+    color: rgb(255, 255, 255);
+    background-color: transparent;
+    text-decoration: underline;
+}
+
 .wrapper {
     justify-content: center;
     display: flex;
@@ -93,19 +122,96 @@ form input[name="amount"] {
 }
 
 .drink-list {
-    width: 60%;
+    width: 50%;
     margin-top: 70px;
-    margin-left: 20%;
-    background-color: #066175;
+    margin-left: 25%;
+}
+
+.drink-list-item {
+    height: 3rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    background-color: #535b63;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.drink-list-text {
+    padding: 1rem 1rem;
+    font-size: 1rem;
+    width: 80%;
+    margin-left: 10%;
     cursor: pointer;
 }
 
-.drink-list u {
-    color: white;
+.drink-status {
+    float: right;
+}
+
+.drink-status-button {
+    display: inline;
+}
+
+.link-button-approved {
+    background: none;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 1em;
+    font-family: serif;
+    color: lime
+}
+
+.link-button-not-approved {
+    background: none;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 1em;
+    font-family: serif;
+    color: red;
 }
 
 .drink {
-    margin-left: 5%;
-    width: 90%;
-    background-color: #066175;
+    margin-left: 25%;
+    width: 50%;
+}
+
+.drink-info {
+    color: rgb(255, 255, 255);
+    text-align: center;
+    margin-top: 2rem;
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 40%;
+    background-color: #535b63;
+    padding: 1rem;
+}
+
+.drink-edit-bar {
+    height: 50px;
+    background-color: #535b63;
+}
+
+.link-button {
+    padding: 1rem 2rem;
+    background: none;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 1em;
+    font-family: serif;
+    transition: 0.15s;
+}
+
+.button-edit {
+    color: orange;
+}
+
+.button-delete {
+    color: red;
+}
+
+.link-button-edit:hover {
+    background-color: #3f434b;
 }

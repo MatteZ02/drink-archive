@@ -1,6 +1,26 @@
-<link rel="stylessheet" href="../../public/table.css">
-<tr>
-    <th scope="row"><u><%= drink.name %> </u></th>
-    <td><u><%= drink.genre %> </u></td>
-    <a href="/drink/<%=drink.id %>">Avaa</a>
-</tr>
+<link rel="stylessheet" href="../../public/main.css">
+<div class="drink-list-item">
+    <div class="drink-list-text">
+        <a href="/drink/<%= drink.id %> "><%= drink.name %> </a>
+        - Laji: <%= drink.genre %> 
+        <% if (user.admin) { %> 
+            <div class="drink-status">
+                <% if (drink.approved == 0) { %> 
+                    <form method="post" action="approve" class="drink-status-button">
+                        <input type="hidden" name="id" value="<%=drink.id%>">
+                        <button type="submit" name="code" value="1" class="link-button-not-approved">
+                            status: Not approved
+                        </button>
+                    </form>
+                <% } else { %> 
+                    <form method="post" action="approve" class="drink-status-button">
+                        <input type="hidden" name="id" value="<%=drink.id%>">
+                        <button type="submit" name="code" value="0" class="link-button-approved">
+                            status: Approved
+                        </button>
+                    </form>
+                <% } %> 
+            </div>
+        <% } %> 
+    </div>
+</div>
