@@ -3,7 +3,7 @@
 
 <head>
     <link rel="stylesheet" href="../public/main.css">
-  <title>Drinkit</title>
+  <title>Drinkki</title>
 </head> 
 
 <body>
@@ -17,27 +17,27 @@
                 <form method="post" action="edit" class="drink-status-button">
                     <input type="hidden" name="id" value="<%=params.drink.id%>">
                     <button type="submit" name="code" value="edit" class="link-button button-edit">
-                        Edit
+                        Muokkaa
                     </button>
                 </form>
                 <form method="post" action="delete" class="drink-status-button">
                     <input type="hidden" name="id" value="<%=params.drink.id%>">
                     <button type="submit" name="code" value="delete" class="link-button button-delete">
-                        Delete
+                        Poista
                     </button>
                 </form>
                 <% if (params.drink.approved == 0) { %> 
                     <form method="post" action="approve" class="drink-status-button">
                         <input type="hidden" name="id" value="<%=params.drink.id%>">
                         <button type="submit" name="code" value="1" class="link-button link-button-not-approved">
-                            Not approved
+                            Ei Hyväksytty
                         </button>
                     </form>
                 <% } else { %> 
                     <form method="post" action="approve" class="drink-status-button">
                         <input type="hidden" name="id" value="<%=params.drink.id%>">
                         <button type="submit" name="code" value="0" class="link-button link-button-approved">
-                            Approved
+                            Hyväksytty
                         </button>
                     </form>
                 <% } %> 

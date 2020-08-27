@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="../public/nav.css">
 <nav>
   <div class="user">
-    <a href="/user">Logged in as <%=user.username %></a>
+    <a href="/users">Kirjauduttu käyttäjällä <%=user.username %></a>
     <a href="/logout">Kirjaudu ulos</a>
   </div>
   <div class="dropdown">
@@ -10,6 +10,9 @@
       <a href="/">Etusivu</a>
       <a href="/drinks">Drinkit</a>
       <a href="/add">Lisää drinkki</a>
+      <% if (user.admin) { %> 
+        <a href="/users">Hallinnoi käyttäjiä</a>
+      <% } %> 
     </div>
   </div>
 </nav>

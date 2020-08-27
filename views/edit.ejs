@@ -7,19 +7,20 @@
 </head>
 
 <body>
-    <%- include("./modules/nav") %>
+    <%- include("./modules/nav", { user }) %> 
     <div class="add-form">
         <h1>
             Muokkaa drinkin tietoja
         </h1>
         <form action="update" method="POST">
+            <input type="hidden" name="id" value="<%=params.drink.id%>">
             Nimi
             <input type="text" name="name" value="<%= params.drink.name %>" required>
             Laji
             <input type="text" name="genre" value="<%= params.drink.genre %>" required>
             Valmistusohje
             <input type="text" name="recipe" value="<%= params.drink.recipe %>" required>
-            <input type="submit">
+            <input type="submit" value="Vahvista muutokset">
         </form>
     </div>
 </body>

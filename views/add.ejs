@@ -40,13 +40,13 @@
                 <% }); %> 
             </select>
             <input type="text" name="amount" placeholder="määrä">
-            <input type="submit">
+            <input type="submit" value="Lisää">
         </form>
         <% if (user.admin) { %> 
             <h2>Lisää ainesosa</h2>
             <form action="addingredient" method="POST">
                 <input type="text" name="name" placeholder="nimi" required>
-                <input type="submit">
+                <input type="submit" value="Lisää">
             </form>
         <% } %>
     </div>

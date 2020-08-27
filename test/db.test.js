@@ -1,4 +1,4 @@
-const database = require("../struct/database");
+const { database } = require("../struct/database");
 const config = require("../config.json");
 
 const db = new database(config.database);

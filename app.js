@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const path = require("path");
 const router = require("./routes/router");
 const config = require("./config.json");
-const db = require("./db");
 
 const port = process.env.PORT || config.port;
 
@@ -30,5 +29,3 @@ app.set("view engine", "ejs");
 app.listen(port, () => console.log(`- Active on port ${port} -`));
 
 router(app);
-
-exports.db = db;

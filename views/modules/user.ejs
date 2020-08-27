@@ -1,0 +1,37 @@
+<link rel="stylessheet" href="../../public/main.css">
+<div class="list-item">
+    <div class="list-text">
+        ID: <%= account.id %> - Käyttäjänimi: <%= account.username %> - Email: <%= account.email %>  
+        <% if (account.id != 1) { %> 
+            <div class="user-delete">
+                    <form method="post" action="deleteuser" class="user-delete-button">
+                        <input type="hidden" name="id" value="<%=account.id%>">
+                        <button type="submit" name="code" value="0" class="link-button-delete">
+                            Poista
+                        </button>
+                    </form>
+            </div>
+            <% if (user.admin) { %>
+                <% if (!account.admin) { %> 
+                <div class="user-admin">
+                    <form method="post" action="adminuser" class="user-admin-button">
+                        <input type="hidden" name="id" value="<%=account.id%>">
+                        <button type="submit" name="code" value="1" class="link-button-admin">
+                            Tee ylläpitäjä
+                        </button>
+                    </form>
+                </div>
+                <% } else { %> 
+                    <div class="user-admin">
+                    <form method="post" action="adminuser" class="user-admin-button">
+                        <input type="hidden" name="id" value="<%=account.id%>">
+                        <button type="submit" name="code" value="0" class="link-button-admin">
+                            Poista ylläpitäjä
+                        </button>
+                    </form>
+            </div>
+        <% } %> 
+        <% } %>  
+        <% } %> 
+    </div>
+</div>

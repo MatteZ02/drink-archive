@@ -1,4 +1,4 @@
-const db = require("../db");
+const db = require("../struct/database");
 
 module.exports = (app) => {
     const renderTemplate = (req, res, template, params, code) => {
@@ -6,8 +6,9 @@ module.exports = (app) => {
         res.render(template, { db, params, code, user: user[0]});
     };
 
-    const isAuthenticated = (req, res, template, params) => {
+    const isAuthenticated = (req, res, template, params, admin) => {
         if (req.session.loggedin) {
+            //if (admin && !req.session.user.admin) return res.redirect("/");
             renderTemplate(req, res, template, params);
         } else {
             res.redirect("/login");
@@ -25,9 +26,9 @@ module.exports = (app) => {
     app.get("/", (req, res) => isAuthenticated(req, res, "index"));
     app.get("/login", (req, res) => isAuthenticatedInv(req, res, "login"));
     app.get("/register", (req, res) => isAuthenticatedInv(req, res, "register"));
-    app.get("/drinks", async (req, res) => isAuthenticated(req, res, "drinks", { drinks: await db.select({table: "drinks"}) }));
+    app.get("/drinks", async (req, res) => isAuthenticated(req, res, "drinks", { drinks: await db.select({table: "drinks"}), ingredients: await db.select({table: "ingredient"}) }));
     app.get("/add", async (req, res) => isAuthenticated(req, res, "add", { ingredients: await db.select({table: "ingredient"}) }));
-    app.get("/user", (req, res) => isAuthenticated(req, res, "user"));
+    app.get("/users", async (req, res) => isAuthenticated(req, res, "users", { users: await db.select({table: "accounts"}) }, true));
 
     app.get("/drink", (req, res) => res.redirect("/drinks"));
 
@@ -49,6 +50,28 @@ module.exports = (app) => {
     app.get("/logout", (req, res) => {
         req.session.loggedin = false;
         res.redirect("/");
+    });
+
+    app.post("/drinksfilter", async (req, res) => {
+        const drinklist = await db.select({table: "drinks"});
+        const drinks = [];
+        const final = [];
+        if (req.body.name.length > 1) {
+            drinklist.forEach(drink => {
+                if (drink.name.toLowerCase().includes(req.body.name.toLowerCase())) drinks.push(drink);
+            });
+        } else drinklist.forEach(drink => drinks.push(drink));
+
+        if (req.body.ingredient != 1) {
+            drinks.forEach(async drink => {
+                const ingredients = await db.select({table: "ingredients", where: `drink = ${drink.id}`});
+                ingredients.forEach(ing => {
+                    if (ing.ingredient == req.body.ingredient) final.push(drink);
+                });
+            });
+        } else drinks.forEach(drink => final.push(drink));
+        
+        isAuthenticated(req, res, "drinks", { drinks: final, ingredients: await db.select({table: "ingredient"}) })
     });
 
     app.post("/registered", async (req, res) => {
@@ -131,26 +154,33 @@ module.exports = (app) => {
         res.redirect(`/drink/${req.body.id}`);
     });
 
-    app.post("/update", async (req, res) => {
-        const result = await db.insert({table: "drinks", fields: "name, genre, recipe, approved", values: `"${req.body.name}", "${req.body.genre}", "${req.body.recipe}", "0"`});
-        let i = 0;
-        req.body.ingredients.forEach(item => {
-            if (item == 1) return;
-            db.insert({table: "ingredients", fields: "drink, ingredient, amount", values: `"${result.insertId}", "${item}", "${req.body.amount[i]}"`});
-            i++;
-        });
-        res.redirect(`/drink/${result.insertId}`);
+    app.post("/drink/update", (req, res) => {
+        db.update({table: "drinks", set: `name = "${req.body.name}", genre = "${req.body.genre}", recipe = "${req.body.recipe}"`, where: `id = ${req.body.id}`});
+        res.redirect(`/drink/${req.body.id}`);
     });
 
     app.post("/drink/edit", async (req, res) => {
         const drink = await db.select({table: "drinks", where: `id = ${req.body.id}`});
-        isAuthenticated(req, res, "edit", { drink });
+        isAuthenticated(req, res, "edit", { drink: drink[0] });
     });
 
-    app.post("/drink/delete", async (req, res) => {
-        db.delete({table: "drinks", where: `id = ${req.body.id}`});
+    app.post("/drink/delete", (req, res) => {
         db.delete({table: "ingredients", where: `drink = ${req.body.id}`});
+        db.delete({table: "drinks", where: `id = ${req.body.id}`});
         res.redirect("/drinks");
     });
 
+
+    app.post("/deleteuser", (req, res) => {
+        db.delete({table: "accounts", where: `id = ${req.body.id}`});
+        req.session.loggedin = false;
+        res.redirect("/login");
+    });
+
+    app.post("/adminuser", (req, res) => {
+        db.update({table: "accounts", set: `admin = ${req.body.code}`, where: `id = ${req.body.id}`});
+        if (req.body.code == 0) req.session.user[0].admin = false;
+        else req.session.user[0].admin = true;
+        res.redirect("/users");
+    });
 }

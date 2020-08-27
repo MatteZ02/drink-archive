@@ -1,6 +1,6 @@
 const mysql = require("mysql");
 
-module.exports = class database {
+class database {
     constructor(config) {
         this.connection = mysql.createConnection({
             host: config.host,
@@ -81,4 +81,6 @@ module.exports = class database {
     }
 }
 
+const config = require("../config.json");
 
+module.exports = new database(config.database);

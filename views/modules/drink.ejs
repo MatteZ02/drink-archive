@@ -1,6 +1,6 @@
 <link rel="stylessheet" href="../../public/main.css">
-<div class="drink-list-item">
-    <div class="drink-list-text">
+<div class="list-item">
+    <div class="list-text">
         <a href="/drink/<%= drink.id %> "><%= drink.name %> </a>
         - Laji: <%= drink.genre %> 
         <% if (user.admin) { %> 
@@ -9,18 +9,30 @@
                     <form method="post" action="approve" class="drink-status-button">
                         <input type="hidden" name="id" value="<%=drink.id%>">
                         <button type="submit" name="code" value="1" class="link-button-not-approved">
-                            status: Not approved
+                            Tila: Ei Hyväksytty
                         </button>
                     </form>
                 <% } else { %> 
                     <form method="post" action="approve" class="drink-status-button">
                         <input type="hidden" name="id" value="<%=drink.id%>">
                         <button type="submit" name="code" value="0" class="link-button-approved">
-                            status: Approved
+                            Tila: Hyväksytty
                         </button>
                     </form>
                 <% } %> 
             </div>
+        <% } else { %> 
+            <div class="drink-status">
+            <% if (drink.approved == 0) { %> 
+                    <button type="submit" name="code" value="1" class="link-button-not-approved">
+                        Tila: Ei Hyväksytty
+                    </button>
+            <% } else { %> 
+                    <button type="submit" name="code" value="0" class="link-button-approved">
+                        Tila: Hyväksytty
+                    </button>
+            <% } %> 
+        </div>
         <% } %> 
     </div>
 </div>

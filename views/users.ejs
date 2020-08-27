@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fi">
+
+<head>
+    <link rel="stylesheet" href="../public/main.css">
+    <title>Käyttäjät</title>
+</head>
+
+<body>
+  <%- include("./modules/nav", { user }) %> 
+  <div class="list">
+      <% if (user.admin) { %> 
+      <% params.users.forEach(account => { %>
+        <%- include("./modules/user", { account, user }); %>
+      <% }); %>
+      <% } else { %>
+        <%- include("./modules/user", { account: user }) %> 
+      <% } %> 
+  </div>
+</body>
+
+</html>
