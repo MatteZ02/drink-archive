@@ -12,10 +12,10 @@
         <%=params.drink.name%>
     </h1>
     <h2>
-        <%=params.drink.genre%> 
+        <%=params.drink.genre%>
     </h2>
     <div class="drink">
-        <% if (user.admin) { %> 
+        <% if (user.admin || params.drink.ownerid == user.id) { %> 
             <div class="drink-edit-bar">
                 <form method="post" action="edit" class="drink-status-button">
                     <input type="hidden" name="id" value="<%=params.drink.id%>">
@@ -29,20 +29,22 @@
                         Poista
                     </button>
                 </form>
+                <% if (user.admin) { %> 
                 <% if (params.drink.approved == 0) { %> 
                     <form method="post" action="approve" class="drink-status-button">
                         <input type="hidden" name="id" value="<%=params.drink.id%>">
-                        <button type="submit" name="code" value="1" class="link-button link-button-not-approved">
-                            Ei Hyväksytty
-                        </button>
-                    </form>
-                <% } else { %> 
-                    <form method="post" action="approve" class="drink-status-button">
-                        <input type="hidden" name="id" value="<%=params.drink.id%>">
-                        <button type="submit" name="code" value="0" class="link-button link-button-approved">
-                            Hyväksytty
-                        </button>
-                    </form>
+                            <button type="submit" name="code" value="1" class="link-button link-button-not-approved">
+                                Ei Hyväksytty
+                            </button>
+                        </form>
+                    <% } else { %> 
+                        <form method="post" action="approve" class="drink-status-button">
+                            <input type="hidden" name="id" value="<%=params.drink.id%>">
+                            <button type="submit" name="code" value="0" class="link-button link-button-approved">
+                                Hyväksytty
+                            </button>
+                        </form>
+                    <% } %> 
                 <% } %> 
             </div>
         <% } %> 

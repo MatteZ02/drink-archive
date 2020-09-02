@@ -19,7 +19,7 @@
       </select>
       <input type="submit" value="Hae">
   </form>
-      <% if (!user.admin) params.drinks = params.drinks.filter(drink => drink.approved == 1); %> 
+      <% if (!user.admin) params.drinks = params.drinks.filter(drink => drink.approved == 1 || drink.ownerid == user.id); %> 
       <% params.drinks.forEach(drink => { %>
         <%- include("./modules/drink", { drink, user }); %>
       <% }); %>

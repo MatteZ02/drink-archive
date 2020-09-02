@@ -121,7 +121,7 @@ module.exports = (app) => {
     });
 
     app.post("/add", async (req, res) => {
-        const result = await db.insert({table: "drinks", fields: "name, genre, recipe, approved", values: `"${req.body.name}", "${req.body.genre}", "${req.body.recipe}", "0"`});
+        const result = await db.insert({table: "drinks", fields: "name, genre, recipe, approved, ownerid", values: `"${req.body.name}", "${req.body.genre}", "${req.body.recipe}", "0", "${req.session.user[0].id}"`});
         let i = 0;
         req.body.ingredients.forEach(item => {
             if (item == 1) return;
